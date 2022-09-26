@@ -1,0 +1,26 @@
+module.exports = {
+  "development": {
+    "username": "root",
+    "password": null,
+    "database": "movies_db",
+    "host": "127.0.0.1",
+    "dialect": "mysql",
+    define:{
+      underscored:true //esto sirve para que decirle a sequelize que nuestras columnas tienen guiones bajos.
+    }
+  },
+  "test": {
+    "username": "root",
+    "password": null,
+    "database": "database_test",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "root",
+    "password": null,
+    "database": "database_production",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  }
+}
