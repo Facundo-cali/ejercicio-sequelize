@@ -35,14 +35,25 @@ module.exports = {
             etc...
         }), pero es mas facil hacerlo de esta otra manera, donde le decimos que TODAS las propiedades ya vienen en el req.body -> */
         const newMovie = await Movie.create(req.body)
-        await newMovie.addActores(req.body.actores) //este "actores" es el que pusimos en el select de la view donde seleccionamos cada actor
+        await newMovie.addActores(req.body.actores) 
+        //este "actores" es el que pusimos en el select de la view donde seleccionamos cada actor
         /* nosotros le habiamos dado un alias (en el modelo movie) a la relacion entre peliculas y actores(Actores), por eso usamos el comando add de sequelize para agregarle los actores ala pelicula que creamos */
         res.redirect('/')
     },
     update: async (req,res) => {
+        const movieId = req.params.id;
+        const generos = await Genre.findAll();
+        const actores = await Actor.findAll();
+        const toEdit = await Movie.findByPk(movieId, {include: ['Genre', 'actores']});
+        /* econtramos la pelicula para editar con el id que llega en la url(req.params.id) y con el {include: ['Genre', 'actores']} le estamos pidiendo las RELACIONES que queremos que traiga, Genre y actores son los nombres de cada relacion y las definimos en los modelos. */
 
+        res.render('update_movie', { toEdit, generos, actores })
     },
     change: async (req,res) => {
-
+        const movieId =  req.params.id;
+        const changedMovie = await Movie.findByPk(movieId, {include: ['Genre', 'actores']});
+        await changedMovie.removeActores(changedMovie.actores);//este actores sale de la RELACION donde establecemos los actores de cada pelicula
+        await changedMovie.addActores(req.body.actores);
+        await changedMovie.update(req.body);//primero buscamos la pelicula a cambiar con el id, borramos los actores viejos,añadimos los nuevos y luego actualizamos todo lo demas con el metodo update de sequelize
     }
 }

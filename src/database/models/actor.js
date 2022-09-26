@@ -10,7 +10,8 @@ module.exports = (sequelize, DataTypes) => {
     });
     Actor.associate = models =>{
         Actor.belongsToMany(models.Movie,{
-            through:'actor_movie'//esta es la tabla intermedia que necesitamos para hacer relaciones de muchos a muchos
+            through:'actor_movie',//esta es la tabla intermedia que necesitamos para hacer relaciones de muchos a muchos
+            as:'peliculas'
         });
     }
 

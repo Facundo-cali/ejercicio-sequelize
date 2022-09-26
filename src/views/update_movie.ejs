@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>update page</title>
+</head>
+<body>
+    <main>
+        <form action="/update/<% toEdit.id %> " method="POST"><!--esto dsps se cambia por put con el method override -->
+            <label for="">Title</label>
+            <input type="text" name="title" value= <%= toEdit.title %> >
+            <label for="">Rating</label>
+            <input type="text" name="rating">
+            <label for="">Length</label>
+            <input type="text" name="awards">
+            <label for="">Genre</label>
+            <select name="genre_id">
+                <% generos.forEach(genero => { %>
+                    <% if (toEdit.GenreId === genero.id) { %>
+                        <option value="<% genero.id %>" selected> <%= genero.name %> </option>
+                    <% } else { %>   
+                    <option value="<%=genero.id%>"><%= genero.name %> </option>
+                    <% } %> 
+                <% }) %>
+            </select>
+            <label for="">Actors</label>
+            <select name="actores" multiple> 
+                <% actores.forEach(actor => { %>
+                    <% if (toEdit.actores.some(actorPelicula => actorPelicula.id === actor.id)) { %>
+                        <!-- si el array de actores DE LA PELICULA SELECCIONADA, (no el array de TODOS los actores en general, sino del array que se genera con la relacion actores) tiene adentro un actor con el mismo id que se esta iterando en el forEach significa que este actor estaba seleccionado en esta pelicula asique lo seleccionamos -->
+                        <option value="<% actor.id %> " selected><%= actor.firs_name %> <%= actor.last_name %>  </option>
+                    <% } else {%> 
+                        <option value="<%=actor.id%>"><%= actor.first_name %><%= actor.last_name %>  </option>
+                    <% } %>   
+                <% }) %>=
+            </select>
+            <label for="">Release Date</label>
+            <input type="date" name="release_date">
+            <button type="submit">EDIT!</button>
+        </form>
+    </main>
+</body>
+</html>

@@ -6,8 +6,8 @@ const moviesControllers = require('../controllers/moviesControllers')
 router.get('/', moviesControllers.all);
 router.get('/create',moviesControllers.create);
 router.post('/create',moviesControllers.store);
-// router.get('/update/:id',moviesControllers.update);
-// router.post('/update/:id',moviesControllers.change);
+router.get('/update/:id',moviesControllers.update);
+router.post('/update/:id',moviesControllers.change);
 
 
 module.exports = router;
