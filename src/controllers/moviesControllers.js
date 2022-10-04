@@ -4,8 +4,8 @@ const {Movie, Genre, Actor} = require('../database/models')//esto funciona porqu
 module.exports = {
     all: async (req, res) => {//este metodo all muestra un json con todas las peliculas (async permite definir las lineas de codigo que tengo que esperar)
         try {
-            const moviesJson = await Movie.findAll({include:{all:true}});
-            res.json(moviesJson);
+            const movies = await Movie.findAll({include:{all:true}});
+            res.render('index', { movies })
             /* Movie.findAll() trae todas las peliculas
             y ({include:{all:true}}) sirve para decirle que traiga todas las relaciones que tenga cada pelicula,
             tambien podemos pasarle ({include:['Genre']}) para que solo triga la relacion de genero */
@@ -55,5 +55,12 @@ module.exports = {
         await changedMovie.removeActores(changedMovie.actores);//este actores sale de la RELACION donde establecemos los actores de cada pelicula
         await changedMovie.addActores(req.body.actores);
         await changedMovie.update(req.body);//primero buscamos la pelicula a cambiar con el id, borramos los actores viejos,añadimos los nuevos y luego actualizamos todo lo demas con el metodo update de sequelize
+    },
+    destroy: async (req, res) => {
+        const movieId = req.params.id; //1 - una vez que apretamos el boton de la pelicula que queremos borrar se ejecuta el router.post('/delete/:id',moviesControllers.destroy) de la hoja de rutas, por lo que se guarda el id que identifica la pelicula que queremos borrar
+        const toDelete = await Movie.findByPk(movieId, {include: ['Genre', 'actores']});// 2 - agarramos la pelicula con su genero y actores 
+        await toDelete.removeActores(toDelete.actores);// 3 - borramos los actores de esa pelicula
+        await toDelete.destroy()//borramos la pelicula
+        res.redirect('/');//redirigimos al usuario al listado con todas las peliculas
     }
 }

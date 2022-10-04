@@ -1,4 +1,4 @@
-const { sequelize, DataTypes }= require('sequelize'); //conectamos sequelize con la base de datos, usamos 2 cosas, la coneccion y otro objeto llamado DataTypes
+const { sequelize, DataTypes } = require('sequelize'); //conectamos sequelize con la base de datos, usamos 2 cosas, la coneccion y otro objeto llamado DataTypes
 
 
 

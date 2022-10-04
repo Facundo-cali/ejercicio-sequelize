@@ -8,6 +8,6 @@ router.get('/create',moviesControllers.create);
 router.post('/create',moviesControllers.store);
 router.get('/update/:id',moviesControllers.update);
 router.post('/update/:id',moviesControllers.change);
-
+router.post('/delete/:id',moviesControllers.destroy);
 
 module.exports = router;

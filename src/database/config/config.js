@@ -6,7 +6,8 @@ module.exports = {
     "host": "127.0.0.1",
     "dialect": "mysql",
     define:{
-      underscored:true //esto sirve para que decirle a sequelize que nuestras columnas tienen guiones bajos.
+      underscored:true, //esto sirve para que decirle a sequelize que nuestras columnas tienen guiones bajos.
+      paranoid: true //aca especificamos que nuestros modelos tienen el soft delete
     }
   },
   "test": {
