@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Movie detail</title>
+  <link rel='stylesheet' href='/stylesheets/style.css'/>
+</head>
+<body>
+    <!-- Header -->
+    <%- include('partials/header') %>
+    <!-- /Header -->    
+    <section class="movie__detail">
+        <h2 class="nombre__prod__detail"><%=toDetail.title%></h2>
+        <div class="movie__detail__total ">
+            <img src="\images\Palomitas_de_Maiz_icono.webp" alt="pelicula">
+            <div class="descripcion__prod__detail">
+                <p class=""><%=toDetail.title%></p>
+                <p>
+                    <h3>Genero</h3>
+                    <% generos.forEach(genero => { %>
+                        <% if (toDetail.GenreId === genero.id) { %>
+                            <p value="<% genero.id %>"><%= genero.name %> </p> 
+                        <% } %>
+                    <% }) %>
+                    <h3>Actores</h3>
+                    <% actores.forEach(actor => { %>
+                        <% if (toDetail.actores.some(actorPelicula => actorPelicula.id === actor.id)) { %>
+                            <p value="<% actor.id %> "></p>  <%= actor.first_name %> <%= actor.last_name %> 
+                        <% } %>   
+                    <% }) %>
+                </p>
+                <div class="buttons__detail">
+                    <form method="POST">
+                        <button class="button__detail" type="submit">Agregar a mi lista</button>
+                    </form>
+                    <form action="POST">
+                        <button class="button__detail" type="submit"><a style="color: white;">Editar pelicula</a></button>
+                    </form>
+                    <form action="/delete/<%= toDetail.id %> " method="post">
+                        <button class="button__detail" type="submit">Borrar esta pelicula</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+    </section>
+
+
+
+
+
+
+
+
+
+
+</body>

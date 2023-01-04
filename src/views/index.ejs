@@ -3,18 +3,32 @@
   <head>
     <title>Movies</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src="/javascripts/main.js" defer></script>
   </head>
+  <!-- Header -->
+	<%- include('partials/header') %>
+	<!-- /Header -->
   <body>
-    <h1>Listado</h1>
-    <section>
+    <h1>Peliculas! </h1>
+    <section class="todas_container">
       <% movies.forEach(movie => { %> 
-        <article>
-          <h2><%= movie.title %> </h2>
-          <form action="/delete/<%= movie.id %> " method="post">
-            <button type="submit">Borrar!</button>
-          </form>
-        </article>
-      <% }) %> 
-    </section>
-  </body>
-</html>
+        <a href="/detail/<%= movie.id %>">
+        <article class="pelicula_item">
+            <img class="imagen" src="\images\Palomitas_de_Maiz_icono.webp" alt="img">
+            <div class="titulo">
+              <h2><%= movie.title %></h2>
+            </div>
+            <% generos.forEach(genero => { %>
+              <% if (genero.id === movie.GenreId) { %>
+                <div class="titulo">
+                  <%= genero.name %> </h2> 
+                </div>
+                <% } %>
+                <% }) %>
+              </article>
+            </a>
+        <% }) %> 
+      </section>
+    </body>
+    </html>
+    

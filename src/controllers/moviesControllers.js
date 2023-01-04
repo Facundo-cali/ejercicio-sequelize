@@ -4,8 +4,9 @@ const {Movie, Genre, Actor} = require('../database/models')//esto funciona porqu
 module.exports = {
     all: async (req, res) => {//este metodo all muestra un json con todas las peliculas (async permite definir las lineas de codigo que tengo que esperar)
         try {
+            const generos = await Genre.findAll();
             const movies = await Movie.findAll({include:{all:true}});
-            res.render('index', { movies })
+            res.render('index', { movies, generos })
             /* Movie.findAll() trae todas las peliculas
             y ({include:{all:true}}) sirve para decirle que traiga todas las relaciones que tenga cada pelicula,
             tambien podemos pasarle ({include:['Genre']}) para que solo triga la relacion de genero */
@@ -20,6 +21,13 @@ module.exports = {
         } catch (error) {
             console.log(error);
         }
+    },
+    detail: async(req,res) =>{
+        const movieId = req.params.id;
+        const generos = await Genre.findAll();
+        const actores = await Actor.findAll();
+        const toDetail = await Movie.findByPk(movieId, {include: ['Genre', 'actores']});
+        res.render('detail', { toDetail, generos, actores })
     },
     create: async (req,res) =>{
         const generos = await Genre.findAll();//esto devuelve un array con todos los generos y a esto lo recorremos con un forEach.

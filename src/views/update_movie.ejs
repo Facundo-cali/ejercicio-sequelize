@@ -19,9 +19,9 @@
             <select name="genre_id">
                 <% generos.forEach(genero => { %>
                     <% if (toEdit.GenreId === genero.id) { %>
-                        <option value="<% genero.id %>" selected> <%= genero.name %> </option>
+                        <option value="<%=genero.id %>" selected> <%= genero.name %> </option>
                     <% } else { %>   
-                    <option value="<%=genero.id%>"><%= genero.name %> </option>
+                        <option value="<%=genero.id%>"><%= genero.name %> </option>
                     <% } %> 
                 <% }) %>
             </select>
@@ -30,11 +30,11 @@
                 <% actores.forEach(actor => { %>
                     <% if (toEdit.actores.some(actorPelicula => actorPelicula.id === actor.id)) { %>
                         <!-- si el array de actores DE LA PELICULA SELECCIONADA, (no el array de TODOS los actores en general, sino del array que se genera con la relacion actores) tiene adentro un actor con el mismo id que se esta iterando en el forEach significa que este actor estaba seleccionado en esta pelicula asique lo seleccionamos -->
-                        <option value="<% actor.id %> " selected><%= actor.firs_name %> <%= actor.last_name %>  </option>
+                        <option value="<%= actor.id %> " selected><%= actor.firs_name %> <%= actor.last_name %>  </option>
                     <% } else {%> 
                         <option value="<%=actor.id%>"><%= actor.first_name %><%= actor.last_name %>  </option>
                     <% } %>   
-                <% }) %>=
+                <% }) %>
             </select>
             <label for="">Release Date</label>
             <input type="date" name="release_date">
